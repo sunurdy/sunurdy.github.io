@@ -4,7 +4,6 @@ title: 归档-时间线
 description: 时间线
 comments: false
 ---
-
 <center><i class="fa fa-archive fa-3x"></i></center>
 <br>
 <br>
@@ -16,17 +15,15 @@ comments: false
   
     {% if forloop.first %}
       <legend id="{{this_year}}-{{this_month}}"><strong>{{this_year}}年-{{this_month}}月</strong></legend>
-     
+      <br>
       <ul>
-	   {% endif %}
-
-	           <li><span>{{ post.date | date: "%m月-%d日" }}</span> &raquo; 
-	               <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
-	           </li>
-	  
-	   {% if forloop.last %}
+      {% endif %}
+      <li><span>{{ post.date | date: "%m月-%d日" }}</span> &raquo; 
+        <a class="pjaxlink" href="{{ post.url }}">{{ post.title }}</a>
+      </li>
+    
+      {% if forloop.last %}
       </ul>
-     
     {% else %}
       {% if this_year != next_year %}
         </ul>
