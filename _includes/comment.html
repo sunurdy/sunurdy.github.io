@@ -1,0 +1,35 @@
+<!-- 多说的js代码 Start -->
+<script>var duoshuoQuery = {short_name:"{{ site.duoshuo.shortname }}"};</script>
+<script src="http://static.duoshuo.com/embed.js"></script>
+
+<script type="text/javascript">
+function toggleDuoshuoComments(container){
+    if(jQuery(container).has("div").length>0){
+        jQuery(container).empty();
+        return;
+    }
+    var el = document.createElement('div');//该div不需要设置class="ds-thread"
+    el.setAttribute('data-thread-key', '{{page.id | remove:'/'}}');//必选参数
+    el.setAttribute('data-title', '{{page.title}}');//必选参数
+    el.setAttribute('data-url', 'http://sunurdy.github.io{{page.url}}');//必选参数
+    el.setAttribute('data-author-key', 'sunurdy');//可选参数
+    DUOSHUO.EmbedThread(el);
+    jQuery(container).append(el);
+}
+</script>
+<!-- 多说的js代码 End-->
+<!-- 如果其中一个不用的可以自己注释掉，以提高访问速度，记得把里面的变量名给改了。 -->
+
+<!-- 以下是评论框架，放置在评论需要展示的地方 -->
+
+<br>
+<div id="duoshuo_container">
+    <div>
+    	<a href="#comment-duoshuo" class="comment" onclick="toggleDuoshuoComments('#comment-box-duoshuo');">
+    		查看<strong>多说</strong>评论
+    	</a><span class="comment-count">（<span class="ds-thread-count" data-thread-key="{{page.id | remove:'/'}}" data-count-type="comments"></span>）</span>
+    </div>
+
+    <div id="comment-box-duoshuo" ></div>
+</div>
+

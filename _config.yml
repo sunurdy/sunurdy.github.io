@@ -8,6 +8,6 @@ permalink: /:title
 title: 江行的晨暮
 
 url: http://sunurdy.github.io/
-feed: /atom.xml
+feed: /rss.xml
 author_info: <a href="http://sunurdy.github.io/">江行的晨暮</a>
 
