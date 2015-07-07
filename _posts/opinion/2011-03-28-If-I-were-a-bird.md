@@ -37,3 +37,5 @@ date: 2011-03-28
 [青歌赛视频](http://tv.cntv.cn/video/C17742/a4471ceb41624dfe463cd190c8a99ba1)
 
 
+[SunurDy]:    http://sunurdy.github.io/  "江行的晨暮"
+[1]:    {{ page.url}}  ({{ page.title }})
