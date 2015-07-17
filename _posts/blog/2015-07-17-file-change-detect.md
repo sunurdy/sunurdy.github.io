@@ -1,19 +1,16 @@
 ---
 layout:     post
-title:      类似SVN的文件夹文件状态改变查找
+title:      文件状态改变检测(类似git)
 category: blog
 description: Python脚本，保存文件系统，对比文件历史更改
 ---
 ## 文件系统历史数据改变？
 
-　写这个有毛用？svn不就已经解决了么。老大刚刚看了一眼，语重心长把我教导了一番：
+　写这个有毛用？git、svn不就已经解决了么。老大刚刚看了一眼，语重心长把我教导了一番：
 
 > 不要总想搞个大新闻
-
 > THINK MORE, DO LESS
-
 > 不要重复造轮子
-
 > XML已死，JSON也快了，msgpack...
 
 ### 引子
@@ -21,7 +18,8 @@ description: Python脚本，保存文件系统，对比文件历史更改
 ### 文件树结构
 
 　文件系统一般是用B+树表示，这里为了实现方便，自己建立多叉树。path表示绝对路径，children保存子文件夹，files是字典类型，保存当前路径下文件的md5
-```
+
+``` 
 class node:
     """node for file tree"""    
     def __init__(self,path):
@@ -38,7 +36,8 @@ class node:
 ### 文件遍历
 　这个是老大喷的一个点，为什么有os.walk这么好的模块，还要自己写？性能比人家的好？不要重复造轮子，把精力集中在最重要的事情上去。我服了，的确是这样，正如黄欢讲课时举的栗子，思路不集中，到处串台，从python模块一会就刷到知乎上去了...... concentration
 　好了，毕竟也是练习，复习一下DFS也可以，看了一下os.walk源码，实现思路也是一样的,上代码：
-```
+
+``` 
 def traverse(node,depth=0):
     '''input root node and build multi-tree recursively '''
     path = node.path
@@ -53,7 +52,8 @@ def traverse(node,depth=0):
 ```
 
 没什么可说的，倒是发现几个有关处理路径的函数比较有趣，处理路径字符就直接用库吧：
-```
+
+```  
 os.sep 根据win/linux （\,/）
 os.getcwd()  还可以通过os.path.abspath('.')的方法获取当前路径.
 os.listdir(os.getcwd()) 获取当前路径的所有文件
@@ -78,7 +78,8 @@ all = [d for d in os.listdir('.')] # os.listdir可以列出文件和目录
 2. XML的textnode会包含不确定的空白行
 最初的实现是将node.path保存在<path>中，file信息保存在<file>的文本区。然后结果却发现一个坑，文本区不属于<path><file>标签......
 最初的设计：
-```
+
+```  
 <folder>
   <path>name="E:\360Downloads"</path>
   <file>"{'E:\\360Downloads\\1.txt': 'd41d8cd98f00b204e9800998ecf8427e'}"</file>
@@ -93,7 +94,8 @@ all = [d for d in os.listdir('.')] # os.listdir可以列出文件和目录
 2.TEXT_NODE会出现大量空白行，长度还不确定，导致无法过滤
 所以将所有的信息都保存到了标签的属性中，set、get节点属性即可，非常机智。
 后来改的版本：
-```
+
+```  
 <folder name="E:\360Downloads">
   <file name="{'E:\\360Downloads\\1.txt': 'd41d8cd98f00b204e9800998ecf8427e'}"/>
   <folder name="E:\360Downloads\Software">
@@ -105,13 +107,14 @@ OK，SB的xml格式到此为止，我再也不想用它了。Never and ever agai
 #### cPickle(v2)
 
 　直接把node对象dump到文件中，再使用load反序列化回来
-```
+
+```  
 def generatePickle(node,picklefile):
     f = open(picklefile,'w')
     pickle.dump(node, f)
     f.close()
 ```
-```
+```  
 def readPickleToTree(picklefile):
     f = open(picklefile)
     return pickle.load(f)
@@ -124,7 +127,7 @@ def readPickleToTree(picklefile):
 ### 部分代码
 #### 多叉树XML导出与重建
 
-```
+```  
 def generateXML(node, xmlfile):
     '''from traversed node generate XML'''
     doc = Document()
