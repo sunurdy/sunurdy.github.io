@@ -9,13 +9,13 @@ description: Python脚本，保存文件系统，对比文件历史更改
 　写这个有毛用？git、svn不就已经解决了么。老大刚刚看了一眼，语重心长把我教导了一番：
 
 > 不要总想搞个大新闻
-> THINK MORE, DO LESS
-> 不要重复造轮子
-> XML已死，JSON也快了，msgpack...
+  THINK MORE, DO LESS
+  不要重复造轮子
+  XML已死，JSON也快了，msgpack...
 
-### 引子
+## 引子
 
-### 文件树结构
+## 文件树结构
 
 　文件系统一般是用B+树表示，这里为了实现方便，自己建立多叉树。path表示绝对路径，children保存子文件夹，files是字典类型，保存当前路径下文件的md5
 
@@ -33,8 +33,9 @@ class node:
         _md5 = GetFileMD5(name)
         self.files[name] = _md5 
 ```
-### 文件遍历
+## 文件遍历
 　这个是老大喷的一个点，为什么有os.walk这么好的模块，还要自己写？性能比人家的好？不要重复造轮子，把精力集中在最重要的事情上去。我服了，的确是这样，正如黄欢讲课时举的栗子，思路不集中，到处串台，从python模块一会就刷到知乎上去了...... concentration
+
 　好了，毕竟也是练习，复习一下DFS也可以，看了一下os.walk源码，实现思路也是一样的,上代码：
 
 ``` 
@@ -67,16 +68,19 @@ os.path.basename(path)-------------->截取最后的名称
 all = [d for d in os.listdir('.')] # os.listdir可以列出文件和目录
 ``` 
 
-### 文件树导出与重建
-#### XML(v1)
+## 文件树导出与重建
+### XML(v1)
 
 　DOM? SAX? 还是都不要用了吧，浪费时间，需要自己写处理函数，导出导入都需要使用DFS进行遍历，性能差
 
 其中一些比较有意思的点：
+
 1. 字符串类型的字典怎样转成字典呢？
 非常简单`eval(dic_str)`，eval函数的妙用
+
 2. XML的textnode会包含不确定的空白行
 最初的实现是将node.path保存在<path>中，file信息保存在<file>的文本区。然后结果却发现一个坑，文本区不属于<path><file>标签......
+
 最初的设计：
 
 ```  
@@ -90,7 +94,9 @@ all = [d for d in os.listdir('.')] # os.listdir可以列出文件和目录
 </folder>
 ```
 　这样就发现有两个问题，导致XML无法成功读取：
+
 1.只能读出前几层的节点，节点属性为ELEMENT_NODE,<path>标签里面的都成了TEXT_NODE
+
 2.TEXT_NODE会出现大量空白行，长度还不确定，导致无法过滤
 所以将所有的信息都保存到了标签的属性中，set、get节点属性即可，非常机智。
 后来改的版本：
@@ -104,7 +110,7 @@ all = [d for d in os.listdir('.')] # os.listdir可以列出文件和目录
 ```
 OK，SB的xml格式到此为止，我再也不想用它了。Never and ever again.
 
-#### cPickle(v2)
+### cPickle(v2)
 
 　直接把node对象dump到文件中，再使用load反序列化回来
 
@@ -122,10 +128,11 @@ def readPickleToTree(picklefile):
 　小崩溃，XML载入解析节点搞了一天。pickle只用3行代码！！！
 　不过保存自定义的对象时还是需要注意，如果其他程序需要调用生成的文件，那么要相应程序中导入类的定义。如果导入失败会导致对象无法还原，如果类在后期版本中改变了，也会还原失败。解决方法是在类中加入 `_getstate_()` 和 `_setstate_()` 来修改类实例的状态。使用方法见：[pickle用法][2]
 
-### 文件比较
+## 文件比较
 　这部分也是主要功能部分，思路也简单，还是DFS。不过具体写出来的时候，保存数据和递归有写坑。这部分慢慢写。用到一些装包拆包、序列生成的方法。
-### 部分代码
-#### 多叉树XML导出与重建
+
+## 部分代码
+### 多叉树XML导出与重建
 
 ```  
 def generateXML(node, xmlfile):
@@ -168,7 +175,9 @@ def readXMLToTree(xmlfile,root_path):
     go(DOMTree,res)
     return res.children[0] ## No idea why one redundant node :(
 ```
+## TL;DR
 
+**生命在于折腾**
 
 
 [1]:    {{ page.url}}  ({{ page.title }})
