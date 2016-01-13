@@ -51,9 +51,16 @@ layout: default
         {% endfor %}
         </ul>
 
-        <h2>Project</h2>
+        <h2></h2>
         <ul class="artical-list">
         {% for post in site.categories.project limit:15%}
+            <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+        {% endfor %}
+        </ul>
+
+        <h2>Leetcode</h2>
+        <ul class="artical-list">
+        {% for post in site.categories.leetcode limit:15%}
             <li><a href="{{ post.url }}">{{ post.title }}</a></li>
         {% endfor %}
         </ul>
