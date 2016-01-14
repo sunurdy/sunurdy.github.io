@@ -13,12 +13,14 @@ You are given two linked lists representing two non-negative numbers. The digits
 Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 
 Output: 7 -> 0 -> 8
+
 ```
 class ListNode(object):
     def __init__(self, x):
         self.val = x
         self.next = None
 ```
+
 ## 我的思路
 ### 1. 顺序执行 
 ```
@@ -45,6 +47,7 @@ def addTwoNumbers(l1, l2):
 不细心会出很多错误 感觉写得不好
 
 一年前写的代码：
+
 ```
 class Solution {
 public:
@@ -80,7 +83,7 @@ public:
 ```
 发现一年时间过去了，还是没进步。
 ### 2. 递归
-
+略
 
 ## Better Answer
 ```
