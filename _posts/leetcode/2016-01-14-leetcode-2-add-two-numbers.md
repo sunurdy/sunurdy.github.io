@@ -23,6 +23,7 @@ class ListNode(object):
 
 ## 我的思路
 ### 1. 顺序执行 
+
 ```
 def addTwoNumbers(l1, l2):
     """
@@ -44,6 +45,7 @@ def addTwoNumbers(l1, l2):
         res.next = tmp
     return start.next
 ```
+
 不细心会出很多错误 感觉写得不好
 
 一年前写的代码：
@@ -81,11 +83,13 @@ public:
     }
 };
 ```
+
 发现一年时间过去了，还是没进步。
 ### 2. 递归
 略
 
 ## Better Answer
+
 ```
 def addTwoNumbers(self, l1, l2):
     carry = 0
