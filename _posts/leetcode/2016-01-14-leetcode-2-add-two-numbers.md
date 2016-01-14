@@ -26,7 +26,6 @@ class ListNode(object):
 
 ```
 def addTwoNumbers(l1, l2):
-    """
     res = ListNode(0)
     start = res
     flag = 0
