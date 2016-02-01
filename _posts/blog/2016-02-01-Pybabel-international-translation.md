@@ -18,16 +18,16 @@ TODO
 
 2 
 修改需要自动变换的msg
-    from flask.ext.babel import gettext as _
+```from flask.ext.babel import gettext as _```
     _("username")
      也可以用lazy_gettext，不过实验中抛异常了，需要继续跟进
 
 3 
 编译cfgb
     把文件放到顶层目录中
-    ```pybabel extract -F babel.cfg -o messages.pot .``` (这里是目录)
+```pybabel extract -F babel.cfg -o messages.pot .``` (这里是目录)
     
-    ```pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .```
+```pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .```
 
     便根据gettext()的文字，自动生成pot文件
 
