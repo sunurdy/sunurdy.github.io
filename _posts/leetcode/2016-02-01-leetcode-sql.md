@@ -46,7 +46,11 @@ of those people:
 
 ### Solution
 
-```select FirstName, LastName, City, State from Person left join Address on Person.PersonID = Address.PersonID;```
+```
+select FirstName, LastName, City, State 
+from Person left join Address 
+on Person.PersonID = Address.PersonID;
+```
 
 SQL中的相等只有一个`=`,和编程中不同。
 
