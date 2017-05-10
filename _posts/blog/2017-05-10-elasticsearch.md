@@ -3,7 +3,8 @@ layout:     post
 title:      Elasticsearch
 category: blog
 description: elasticsearch
----​
+---
+
 ## Elasticsearch (+Python dsl)
 
 最近有项目需求查询GEO信息，将一个坐标附近10km的信息全部展示出来。于是升级ES到5.0以上，发现和以前2.0版本有一些区别。记录一下ES相关基础知识点。
