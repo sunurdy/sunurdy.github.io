@@ -12,7 +12,7 @@ description: elasticsearch
 ### INDEX
 创建index可以有前缀，设置create_index_action
 
-```
+```commandline
 curl -XPUT locahot:9200/create_index_action/realtime_data?pretty -d \
 '{
 	"settings": {
@@ -45,7 +45,7 @@ curl -XPUT locahot:9200/create_index_action/realtime_data?pretty -d \
 #### geo
 用到了[geo-point](https://www.elastic.co/guide/en/elasticsearch/reference/5.3/geo-point.html)
 多种写法，我最喜欢的是这样
-```
+```json
 "location": {
 	"lat": 22.21791458,
 	"lon": 113.55188751
@@ -64,29 +64,34 @@ filter是过滤会有缓存，query是按照score搜索。以前版本中filter 
 #### python-es-dsl
 Query combination时可以
 
-```
+```python
 g_list = map(lambda x: Q('term', gid=x), gids)
 q = reduce(lambda x, y: x | y, g_list)
 s = s.filter(q)
 ```
 也可以
-```
+```python
 s = s.filter('terms', gid=gids)
 ```
 其实filter函数就是query的变形，使用了filter关键字
-```
+```python
 def filter(self, *args, **kwargs):
 	return self.query(Bool(filter=[Q(*args, **kwargs)]))
 ```
 时间range 可以直接填写datetime对象
-```
+```python
 start_time = datetime.datetime.fromtimestamp(float(start_time) / 1000)
 end_time = datetime.datetime.fromtimestamp(float(end_time) / 1000)
 s = s.filter('range', save_time={'gte': start_time, 'lte': end_time})
 ```
 GEO位置查询
-```
+
+geo_distance
+```python
 s = s.filter('geo_distance', distance='10km', location=[lng, lat])
+```
+```cython
+s = s.filter("geo_bounding_box", location={"top_left": tl, "bottom_right": br})
 ```
 
 ## TODO
