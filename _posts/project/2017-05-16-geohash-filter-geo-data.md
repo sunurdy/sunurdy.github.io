@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Geo Hash
-category: blog
+category: project
 description: 关于Geo地理数据分组聚合的算法
 ---
 

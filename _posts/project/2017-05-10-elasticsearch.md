@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Elasticsearch
-category: blog
+category: project
 description: elasticsearch
 ---
 

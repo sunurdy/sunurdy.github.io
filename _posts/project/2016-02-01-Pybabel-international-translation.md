@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      pybabel国际化翻译
-category: blog
+category: project
 description: pybabel简单使用笔记
 
 ---
