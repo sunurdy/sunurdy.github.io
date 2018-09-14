@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:     Task工作流引擎
+title:     Task
 category: project
 description: 工作
 ---
 
 ##Task工作流引擎项目总结
 
-最近做的预研项目，离线批处理任务引擎。类似stackstorm等引擎，最早是看到某公司做的playbook，想自己开发一版。
+最近做的预研项目，离线批处理任务。
 
 旁杂的暂且不表，一直是推翻重写，意见总是不一致。不过每一次都会使用到python中的以前不常用的小魔术，记一下。
 
