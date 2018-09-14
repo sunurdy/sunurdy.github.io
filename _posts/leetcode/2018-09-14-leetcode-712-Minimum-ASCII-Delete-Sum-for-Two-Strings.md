@@ -1,11 +1,11 @@
 ---
 layout:     post
-title:      712. Minimum ASCII Delete Sum for Two Strings
+title:      DP
 category: leetcode
 description: DP
 ---
 
-## Minimum ASCII Delete Sum for Two Strings
+## 712. Minimum ASCII Delete Sum for Two Strings
 ### description
 
 Given two strings s1, s2, find the lowest ASCII sum of deleted characters to make two strings equal.
@@ -73,4 +73,44 @@ class Solution(object):
 ```
 
 
+## 300. Longest Increasing Subsequence
+### description
+Given an unsorted array of integers, find the length of longest increasing subsequence.
+
+**Example**:
+
+Input: ```[10,9,2,5,3,7,101,18]```
+Output: 4 
+Explanation: The longest increasing subsequence is ```[2,3,7,101]```, therefore the length is 4. 
+Note:
+
+There may be more than one LIS combination, it is only necessary for you to return the length.
+Your algorithm should run in O(n2) complexity.
+Follow up: Could you improve it to O(n log n) time complexity?
+
+O(n * n)
+```python
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        
+        l = len(nums)
+        
+        # dp[i] means the longest length with an end of element nums[i]
+        dp = [1] * l 
+        
+        for i, _ in enumerate(nums):
+            _max = 0
+            for j in range(i+1):
+                if nums[j] < nums[i]:
+                    _max = max(dp[j], _max) 
+            dp[i] = _max + 1
+        
+        return max(dp)
+```
 
